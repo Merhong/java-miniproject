@@ -23,9 +23,9 @@ public class PlayerDao {
     //       3.1 [1]을 가지고 다시 "&"으로 split()
     //       3.2 [1][0] = teamID, [1][1] = name, [1][2] = position
     // 응답 : 성공이라는 메시지를 출력한다.
-    public void registerPlayer(int teamId, String name, String position) throws Exception {
+    public List<Player> registerPlayer(int teamId, String name, String position) throws Exception {
         // Insert 쿼리문 : (팀ID, 이름, 포지션)
-        String query = "INSERT INTO stadium (team_id, name, position) VALUES (?, ?, ?)";
+        String query = "INSERT INTO player (team_id, name, position, created_at) VALUES (?, ?, ?, now())";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, teamId);
             statement.setString(2, name);
@@ -35,6 +35,7 @@ public class PlayerDao {
             // 출력
             System.out.println("성공");
         }
+        return null;
     }
 
     // 3.6 팀별 선수 목록 getTeamPlayers()
