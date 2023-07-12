@@ -44,9 +44,7 @@ public class TeamDao {
         String name = resultSet.getString("name");
         Timestamp createdAt = resultSet.getTimestamp("created_at");
 
-        Team team = new Team(stadium_id, name, createdAt);
-
-        return team;
+       return new Team(stadium_id, name, createdAt);
     }
 
 }
