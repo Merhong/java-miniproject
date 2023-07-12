@@ -2,15 +2,11 @@ import db.DBConnection;
 import model.player.Player;
 import model.player.PlayerDao;
 import model.stadium.StadiumDao;
-import model.team.Team;
 import model.team.TeamDao;
 
 import java.sql.Connection;
-
-import java.sql.SQLException;
-import java.sql.Timestamp;
-
 import java.util.List;
+import java.util.Scanner;
 
 public class BaseBallApp {
     public static void main(String[] args) {
@@ -18,162 +14,66 @@ public class BaseBallApp {
         Connection connection = DBConnection.getInstance();
         // DI (의존성 주입)
         StadiumDao stadiumDao = new StadiumDao(connection);
-
         TeamDao teamDao = new TeamDao(connection);
-
         PlayerDao playerDao = new PlayerDao(connection);
 
-        try {
-            List<Player> players = playerDao.getTeamPlayers(2);
-            System.out.println("선수목록 출력");
-            System.out.println("=================");
-            if (!players.isEmpty()) {
-                for (Player player : players) {
-                    System.out.println("선수이름: " + player.getName());
-                    System.out.println("포지션: " + player.getPosition());
-                }
-            } else {
-                System.out.println("더 이상 선수를 찾을 수 없습니다.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String[] inputParsing;
+        int teamNum = 0;
 
 
+        /* 서비스 메뉴 */
+        // 2.1.1 콘솔에 출력되는 질문
+        System.out.println("어떤 기능을 요청하시겠습니까?");
 
-//        System.out.println("원하시는 서비스 번호와 엔터를 눌러주세요.");
-//        System.out.println("1 : 야구장 전체출력");
-//        Scanner sc = new Scanner(System.in);    // 스캐너 sc
-//        String keyboard = sc.nextLine();        // 키보드 입력을 받는다.
+        // 2.1.2 클라이언트 입력
+        Scanner sc = new Scanner(System.in);  // 스캐너 sc
+        String input = sc.nextLine();         // 클라이언트로부터 키보드 입력을 받는다.
+        inputParsing = input.split("\\?");
 
-        /* 서비스 메뉴 입력  */
-        // 현재 while문 없이 1회 시도 후 종료
-        // 모든 서비스 구현 완료시 while문을 넣고 반복실행
-
-
-
-        // 키보드 입력이 n이 들어오면, n번 서비스 실행
-        if (keyboard.equals("1")) {
-            System.out.println("1번이 입력 되었습니다.");
-            // 1번_서비스(야구장 등록);
-            try {
-                String stadiumName = "한라산";
-                Timestamp openingDate = Timestamp.valueOf("1990-08-10 00:00:00");
-                stadiumDao.registerStadium(stadiumName, openingDate);
-                System.out.println("경기장 이름: " + stadiumName);
-                System.out.println("개장일: " + openingDate);
-                System.out.println("=========================================");
-
-            } catch (SQLException e) {
-                System.out.println("야구장을 등록하지 못하였습니다 : " + e.getMessage());
-                System.out.println("=========================================");
-            }
+        // 2.1.3 main메소드에서 할 일 (서비스 구현)
+        // 입력받은 값(input) : 선수등록?teamId=1&name=이대호&position=1루수
+        // "?"로 파싱하면 [0] = 선수등록, [1] = teamId=1&name=이대호&position=1루수
+        // PlayerService의 선수등록() 메서드에서 해당 값을 받아서 PlayerDao의 insert() 메서드를 호출
+        // 값이 DB에 잘 들어갔다면, 결과가 1로 리턴될 것이다. 1이 리턴되면 Console에 성공이라는 메시지를 출력
 
 
-        } else if (keyboard.equals("2")) {
-            System.out.println("2번이 입력 되었습니다.");
-            // 2번_서비스(전체 야구장 목록보기);
-            try {
-                List<Stadium> stadiums = stadiumDao.getAllStadiums();
-                if (!stadiums.isEmpty()) {
-                    for (Stadium stadium : stadiums) {
-                        System.out.println("경기장이름: " + stadium.getName());
-                        System.out.println("개장일: " + stadium.getCreatedAt());
-                        System.out.println("----");
+        // 3.1 야구장 등록
 
+        // 3.2 전체 야구장 목록보기
+
+        // 3.3 팀 등록
+
+        // 3.4 전체 팀 목록
+
+        // 3.5 선수 등록
+
+
+        // 3.6 팀별 선수 목록
+        // input : 선수목록?teamId=1 라 했을때,
+        if (inputParsing[0].equals("선수목록")) {  // "?"를 기준으로 split하면 [0]에는 서비스 이름, [1]에는 teamId=1 이 문자열로 들어감.
+            teamNum = Integer.parseInt(inputParsing[1].split("=")[1]); // teamId=1을 "="으로 split해서 [0]에는 teamID, [1]에는 1이 문자열로 들어가는데
+            try {                                                             // 문자열 1을 정수 1로 바꿔서 teamNum에 넣어서 동적으로 만들어 줌.
+                List<Player> players = playerDao.getTeamPlayers(teamNum);     // 1번팀이 들어가므로 롯데의 모든 선수 목록을 출력한다.
+                System.out.println("선수목록 출력");
+                System.out.println("=================");
+                if (!players.isEmpty()) {
+                    for (Player player : players) {
+                        System.out.println("선수이름: " + player.getName());
+                        System.out.println("포지션: " + player.getPosition());
                     }
                 } else {
-                    System.out.println("야구장을 찾지 못하였습니다.");
-                    System.out.println("=========================================");
+                    System.out.println("더 이상 선수를 찾을 수 없습니다.");
                 }
-            } catch (SQLException e) {
-                System.out.println("오류가 있습니다: " + e.getMessage());
-                System.out.println("=========================================");
-            }
-
-
-        } else if (keyboard.equals("3")) {
-            System.out.println("3번이 입력 되었습니다.");
-            // 3번_서비스(팀 등록);
-            try {
-                int stadiumId = 6;
-                String teamName = "제주";
-                Timestamp createdAt = Timestamp.valueOf("2008-06-20 00:00:00");
-
-                teamDao.registerTeam(stadiumId, teamName, createdAt);
-
-                System.out.println("홈구장: " + stadiumId + "번");
-                System.out.println("팀 이름: " + teamName);
-                System.out.println("창단일: " + createdAt);
-                System.out.println("팀 등록에 성공하였습니다");
-                System.out.println("----");
-            } catch (SQLException e) {
-                System.out.println("팀 등록에 실패하였습니다: " + e.getMessage());
-                System.out.println("=========================================");
-            }
-
-
-        } else if (keyboard.equals("4")) {
-            System.out.println("4번이 입력 되었습니다.");
-            // 4번_서비스(전체 팀 목록보기);
-            try {
-                List<Team> teams = teamDao.getAllTeams();
-                if (!teams.isEmpty()) {
-                    for (Team team : teams) {
-                        System.out.println("홈구장 : " + team.getStadiumId());
-                        System.out.println("구단이름: " + team.getName());
-                        System.out.println("창단일: " + team.getCreatedAt());
-                        System.out.println("----");
-                    }
-                } else {
-                    System.out.println("팀을 찾지 못하였습니다.");
-                    System.out.println("=========================================");
-                }
-            } catch (SQLException e) {
-                System.out.println("오류가 있습니다: " + e.getMessage());
-                System.out.println("=========================================");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
-//        // 키보드 입력이 n이 들어오면, n번 서비스 실행
-//        if (keyboard.equals("1")) {
-//            System.out.println("1번이 입력 되었습니다.");
-//            // 1. 야구장 전체출력
-//            try {
-//                List<Stadium> stadiums = stadiumDao.getAllStadiums();
-//                if (!stadiums.isEmpty()) {
-//                    for (Stadium stadium : stadiums) {
-//                        System.out.println("경기장이름: " + stadium.getName());
-//                        System.out.println("개장: " + stadium.getCreatedAt());
-//                        System.out.println();
-//                    }
-//                } else {
-//                    System.out.println("못찾겠다.");
-//                }
-//            } catch (SQLException e) {
-//                System.out.println("오류가 있습니다: " + e.getMessage());
-//            }
-//
-//
-//        } else if (keyboard.equals("2")) {
-//            System.out.println("2번이 입력 되었습니다.");
-//            // 2번_서비스();
-//        }
-//        else if (keyboard.equals("3")) {
-//            System.out.println("3번이 입력 되었습니다.");
-//            // 3번_서비스();
-//        }
-//        else if (keyboard.equals("4")) {
-//            System.out.println("2번이 입력 되었습니다.");
-//            // 4번_서비스();
-//        }
+        // 3.7 선수 퇴출 등록
 
+        // 3.8 선수 퇴출 목록
 
-        // 3.5 선수등록
+        // 3.9 포지션별 팀 야구 선수 페이지
 
-
-//        else {
-//            System.out.println("Input 오류 : 숫자 입력후 엔터를 눌러주세요!");
-//        }
     }
 }
