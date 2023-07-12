@@ -1,9 +1,6 @@
 package model.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +65,22 @@ public class PlayerDao {
         Timestamp createdAt = resultSet.getTimestamp("created_at");
 
         return new Player(teamId, name, position, createdAt);
+    }
+
+    // 선수 퇴출 메소드 updateKickPlayer()
+    public List<Player> updateKickPlayer(int playerId) {
+        List<Player> players = new ArrayList<>();
+        String query = "UPDATE SET team_id = null WHERE player.id = out_player.?;";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, playerId);
+            statement.executeUpdate();
+
+            // 출력
+            System.out.println("업데이트 성공");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("업데이트 실패!!!");
+        }
+        return null;
     }
 }
