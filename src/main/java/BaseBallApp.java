@@ -18,8 +18,6 @@ public class BaseBallApp {
         PlayerDao playerDao = new PlayerDao(connection);
 
         String[] inputParsing;
-        int teamNum = 0;
-
 
         /* 서비스 메뉴 */
         // 2.1.1 콘솔에 출력되는 질문
@@ -49,11 +47,15 @@ public class BaseBallApp {
 
 
         // 3.6 팀별 선수 목록
-        // input : 선수목록?teamId=1 라 했을때,
-        if (inputParsing[0].equals("선수목록")) {  // "?"를 기준으로 split하면 [0]에는 서비스 이름, [1]에는 teamId=1 이 문자열로 들어감.
-            teamNum = Integer.parseInt(inputParsing[1].split("=")[1]); // teamId=1을 "="으로 split해서 [0]에는 teamID, [1]에는 1이 문자열로 들어가는데
-            try {                                                             // 문자열 1을 정수 1로 바꿔서 teamNum에 넣어서 동적으로 만들어 줌.
-                List<Player> players = playerDao.getTeamPlayers(teamNum);     // 1번팀이 들어가므로 롯데의 모든 선수 목록을 출력한다.
+        if (inputParsing[0].equals("선수목록")) {
+            // input : 선수목록?teamId=1 라 했을때,
+            // 첫번째 split : "?"를 기준으로  [0]에는 서비스 이름 "선수목록", [1]에는 "teamId=1" 이 문자열로 들어감.
+            // [1]을 다시 split : "=" 기준으로 split, [0]에는 "teamID", [1]에는 "1"이 문자열로 들어감.
+            try {
+                List<Player> players = playerDao.getTeamPlayers(
+                        Integer.parseInt(inputParsing[1].split("=")[1])  // getTeamPlayers( Index ) 넣는 부분, 정수가 필요하다.
+                                                                                // [1][1]인 문자열 1을 정수 1로 바꿔서 동적으로 할당 가능하게 함.
+                );
                 System.out.println("선수목록 출력");
                 System.out.println("=================");
                 if (!players.isEmpty()) {
