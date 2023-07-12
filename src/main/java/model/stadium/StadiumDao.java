@@ -11,7 +11,7 @@ public class StadiumDao {
     }
 
     // 야구장 등록
-    public void 야구장등록(String name, Timestamp createdAt) throws SQLException {
+    public void registerStadium(String name, Timestamp createdAt) throws SQLException {
         String query = "INSERT INTO stadium (name, created_at) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
@@ -20,7 +20,7 @@ public class StadiumDao {
         }
     }
 
-    // 야구장 목록보기
+    // 야구장 전체 목록보기
     public List<Stadium> getAllStadiums() throws SQLException {
         List<Stadium> stadiums = new ArrayList<>();
         String query = "SELECT * FROM stadium";
