@@ -23,7 +23,7 @@ public class StadiumDao {
     // 야구장 전체 목록보기
     public List<Stadium> getAllStadiums() throws SQLException {
         List<Stadium> stadiums = new ArrayList<>();
-        String query = "SELECT * FROM stadium";
+        String query = "SELECT * FROM stadium;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             try(ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()) {
@@ -40,9 +40,8 @@ public class StadiumDao {
         String name = resultSet.getString("name");
         Timestamp createdAt = resultSet.getTimestamp("created_at");
 
-        Stadium stadium = new Stadium(name, createdAt);
 
-        return stadium;
+        return new Stadium(name, createdAt);
     }
 
 }
