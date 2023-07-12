@@ -10,8 +10,8 @@ INSERT INTO stadium(name, created_at) VALUES('광주기아챔피언스필드', '
 
 ## /* 1.2 팀 -> 3개 */<br>
 INSERT INTO team(stadium_id, name, created_at) VALUES(1, '롯데', '1975-01-01');<br>
-INSERT INTO team(stadium_id, name, created_at) VALUES(1, '키움', '2008-01-01');<br>
-INSERT INTO team(stadium_id, name, created_at) VALUES(1, '기아', '1982-01-01');<br>
+INSERT INTO team(stadium_id, name, created_at) VALUES(2, '키움', '2008-01-01');<br>
+INSERT INTO team(stadium_id, name, created_at) VALUES(3, '기아', '1982-01-01');<br>
 
 
 ## /* 1.3 플레이어(선수) 9명 -> 3개 */
