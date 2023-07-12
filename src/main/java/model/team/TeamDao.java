@@ -11,9 +11,9 @@ public class TeamDao {
         this.connection = connection;
     }
 
-    // 팀 등록
+    // 3.3 팀 등록
     public void registerTeam(int stadiumId, String name, Timestamp createdAt) throws SQLException {
-        String query = "INSERT INTO team(stadium_id, name, created_at) VALUES(?, ?, ?)";
+        String query = "INSERT INTO team(stadium_id, name, created_at) VALUES(?, ?, ?);";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, stadiumId);
@@ -23,7 +23,7 @@ public class TeamDao {
         }
     }
 
-    // 전체 팀 목록보기
+    // 3.4 전체 팀 목록보기
     public List<Team> getAllTeams() throws SQLException {
         List<Team> teams = new ArrayList<>();
         String query = "SELECT * FROM team";

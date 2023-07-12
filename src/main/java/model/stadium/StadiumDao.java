@@ -6,11 +6,12 @@ import java.util.List;
 
 public class StadiumDao {
     private Connection connection;
+
     public StadiumDao(Connection connection) {
         this.connection = connection;
     }
 
-    // 야구장 등록
+    // 3.1 야구장 등록
     public void registerStadium(String name, Timestamp createdAt) throws SQLException {
         String query = "INSERT INTO stadium (name, created_at) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -20,12 +21,12 @@ public class StadiumDao {
         }
     }
 
-    // 야구장 전체 목록보기
+    // 3.2 야구장 전체 목록보기
     public List<Stadium> getAllStadiums() throws SQLException {
         List<Stadium> stadiums = new ArrayList<>();
         String query = "SELECT * FROM stadium;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            try(ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Stadium stadium = buildStadiumFromResultSet(resultSet);
                     stadiums.add(stadium);
@@ -35,12 +36,11 @@ public class StadiumDao {
         return stadiums;
     }
 
-
+    // 야구장 집합 만드는 메소드
     private Stadium buildStadiumFromResultSet(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString("name");
         Timestamp createdAt = resultSet.getTimestamp("created_at");
 
         return new Stadium(name, createdAt);
     }
-
 }
