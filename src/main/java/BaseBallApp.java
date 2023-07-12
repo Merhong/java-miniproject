@@ -3,6 +3,7 @@ import model.player.Player;
 import model.player.PlayerDao;
 import model.stadium.Stadium;
 import model.stadium.StadiumDao;
+import model.team.Team;
 import model.team.TeamDao;
 
 import java.sql.Connection;
@@ -51,6 +52,7 @@ public class BaseBallApp {
             String temp[] = inputParsing[1].split("="); // [1] 잠실야구장
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             stadiumDao.registerStadium(temp[1], timestamp);
+            System.out.println();
         }
 
         // 3.2 전체 야구장 목록보기
@@ -63,8 +65,8 @@ public class BaseBallApp {
                 System.out.println("=================");
                 if (!stadiums.isEmpty()) {
                     for (Stadium stadium : stadiums) {
-                        System.out.println("선수이름: " + stadium.getName());
-                        System.out.println("포지션: " + stadium.getCreatedAt());
+                        System.out.println("야구장 이름: " + stadium.getName());
+                        System.out.println("개장일: " + stadium.getCreatedAt());
                     }
                 } else {
                     System.out.println("더 이상 야구장을 찾을 수 없습니다.");
@@ -76,8 +78,41 @@ public class BaseBallApp {
 
 
         // 3.3 팀 등록
+        // 팀등록?stadiumId=1&name=NC
+        if(inputParsing[0].equals("팀등록")) {
+            System.out.println("팀등록 서비스를 실행합니다.");
+
+            String temp[] = inputParsing[1].split("&"); // [0]stadiumId=1 [1]name=NC
+            String temp2[] = temp[0].split("=");        // [0]stadiumId [1]1 / [2]name [3]NC 모두 문자열
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            teamDao.registerTeam(
+                    Integer.parseInt(temp2[0]), // teamId
+                    temp2[3],                   // name
+                    timestamp                   // createdAt
+            );
+        }
 
         // 3.4 전체 팀 목록
+        if (input.equals("팀목록")) {
+            //System.out.println(teamDao.getAllTeams());
+            try {
+                List<Team> teams = teamDao.getAllTeams();
+                System.out.println("팀 목록 출력");
+                System.out.println("=================");
+                if (!teams.isEmpty()) {
+                    for (Team team : teams) {
+                        System.out.println("홈 구장: " + team.getStadiumId() + "번 구장");
+                        System.out.println("팀 이름: " + team.getName());
+                        System.out.println("개장일: " + team.getCreatedAt());
+                    }
+                } else {
+                    System.out.println("더 이상 팀을 찾을 수 없습니다.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         // 3.5 선수 등록
 //        if (inputParsing[0].equals("선수등록")) {

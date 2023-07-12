@@ -40,7 +40,6 @@ public class StadiumDao {
         String name = resultSet.getString("name");
         Timestamp createdAt = resultSet.getTimestamp("created_at");
 
-
         return new Stadium(name, createdAt);
     }
 
