@@ -36,5 +36,4 @@ public class OutPlayerService {
         return outPlayerDao.listKickPlayer();
     }
 
-
 }

@@ -2,6 +2,7 @@ package service;
 
 import db.DBConnection;
 import dto.PlayerDto;
+import dto.PositionRespDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,5 +36,10 @@ public class PlayerService {
     // 3.7 선수 퇴출 업데이트 메소드 updateKickPlayer()
     public List<Player> updateKickPlayer() {
         return playerDao.updateKickPlayer();
+    }
+
+    // 3.10 포지션별 팀 야구 선수 페이지 getPositionList()
+    public List<PositionRespDto> getPositionList() {
+        return playerDao.getPositionList();
     }
 }

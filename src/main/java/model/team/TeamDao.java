@@ -36,7 +36,7 @@ public class TeamDao {
                 "FROM team\n" +
                 "INNER JOIN stadium \n" +
                 "ON team.stadium_id = stadium.id \n" +
-                "AND team.id = stadium.id;";
+                "AND team.id = stadium. id;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
