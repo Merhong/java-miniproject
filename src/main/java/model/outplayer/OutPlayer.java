@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 
 @Getter @Setter @AllArgsConstructor @ToString
 public class OutPlayer {
-    private int playerId;
+    private Integer id;
+    private Integer playerId;
     private String reason;
     private Timestamp createdAt;
 

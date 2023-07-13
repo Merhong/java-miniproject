@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 
 @Getter @Setter @AllArgsConstructor @ToString
 public class Team {
-    private int stadiumId;
+    private Integer id;
+    private Integer stadiumId;
     private String name;
     private Timestamp createdAt;
 }

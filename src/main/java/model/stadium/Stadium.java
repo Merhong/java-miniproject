@@ -9,7 +9,8 @@ import java.sql.Timestamp;
 
 @Getter @Setter @AllArgsConstructor @ToString
 public class Stadium {
+    private Integer id;
     private String name;
     private Timestamp createdAt;
-    }
+}
 
