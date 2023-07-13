@@ -25,6 +25,7 @@ public class OutPlayerDao {
             statement.setInt(1, playerId);
             statement.setString(2, reason);
             statement.executeUpdate();
+
             // 출력
             System.out.println("퇴출 명단 등록 성공.");
 
