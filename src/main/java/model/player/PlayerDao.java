@@ -1,6 +1,11 @@
 package model.player;
 
-import java.sql.*;
+import db.DBConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +13,8 @@ public class PlayerDao {
 
     private Connection connection;
 
-    public PlayerDao(Connection connection) {
-        this.connection = connection;
+    public PlayerDao() {
+        connection = DBConnection.getInstance();
     }
 
     // 3.5 선수등록 registerPlayer()
@@ -30,7 +35,7 @@ public class PlayerDao {
             statement.executeUpdate();
 
             // 출력
-            System.out.println("성공");
+            System.out.println("선수등록 완료.");
         }
         return null;
     }
@@ -47,10 +52,21 @@ public class PlayerDao {
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, teamId);
             try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
+                System.out.println(teamId + "번팀 선수 목록");
+                System.out.println("==================================");
 
+                while (resultSet.next()) {
                     Player player = buildPlayerFromResultSet(resultSet);
                     players.add(player);
+                }
+                if (!players.isEmpty()) {
+                    for (Player player : players) {
+                        System.out.println("선수 ID: " + player.getId());
+                        System.out.println("선수 이름: " + player.getName());
+                        System.out.println("포지션: " + player.getPosition());
+                        System.out.println("데뷔날짜: " + player.getCreatedAt());
+                        System.out.println("==================================");
+                    }
                 }
             }
         }
@@ -59,15 +75,16 @@ public class PlayerDao {
 
     // 선수를 만드는 메소드 buildPlayerFromResultSet()
     private Player buildPlayerFromResultSet(ResultSet resultSet) throws Exception {
+        int id = resultSet.getInt("id");
         int teamId = resultSet.getInt("team_id");
         String name = resultSet.getString("name");
         String position = resultSet.getString("position");
         Timestamp createdAt = resultSet.getTimestamp("created_at");
 
-        return new Player(teamId, name, position, createdAt);
+        return new Player(id, teamId, name, position, createdAt);
     }
 
-    // 선수 퇴출 메소드 updateKickPlayer()
+    // 3.7 선수 퇴출 메소드 updateKickPlayer()
     public List<Player> updateKickPlayer() {
         List<Player> players = new ArrayList<>();
         // player 테이블의 id 와 out_player 테이블의 player_id가 같다면, player 테이블의 team_id를 null로 변경

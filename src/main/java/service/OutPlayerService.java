@@ -1,5 +1,8 @@
-package model.outplayer;
+package service;
 
+import db.DBConnection;
+import dto.OutPlayerDto;
+import dto.OutPlayerRespDTO;
 import model.outplayer.OutPlayer;
 import model.outplayer.OutPlayerDao;
 
@@ -19,8 +22,8 @@ public class OutPlayerService {
     private OutPlayerDao outPlayerDao;
 
     // 생성자
-    public OutPlayerService(Connection connection) {
-        outPlayerDao = new OutPlayerDao(connection);
+    public OutPlayerService() {
+        this.outPlayerDao = new OutPlayerDao();
     }
     
     // 3.7 선수 퇴출 등록
@@ -29,7 +32,7 @@ public class OutPlayerService {
     }
 
     // 3.8 선수 퇴출 목록
-    public List<OutPlayer> listKickPlayer() {
+    public List<OutPlayerRespDTO> listKickPlayer() {
         return outPlayerDao.listKickPlayer();
     }
 

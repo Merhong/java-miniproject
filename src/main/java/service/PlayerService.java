@@ -1,8 +1,12 @@
-package model.player;
+package service;
 
+import db.DBConnection;
+import dto.PlayerDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import model.player.Player;
+import model.player.PlayerDao;
 
 import java.sql.Connection;
 import java.util.List;
@@ -14,8 +18,8 @@ public class PlayerService {
     private PlayerDao playerDao;
 
     // 생성자
-    public PlayerService(Connection connection) {
-        playerDao = new PlayerDao(connection);
+    public PlayerService() {
+       this.playerDao = new PlayerDao();
     }
 
     // 3.5 선수등록 registerPlayer()
@@ -28,7 +32,7 @@ public class PlayerService {
         return playerDao.getTeamPlayers(teamId);
     }
 
-    // 선수 퇴출 메소드 updateKickPlayer()
+    // 3.7 선수 퇴출 업데이트 메소드 updateKickPlayer()
     public List<Player> updateKickPlayer() {
         return playerDao.updateKickPlayer();
     }
