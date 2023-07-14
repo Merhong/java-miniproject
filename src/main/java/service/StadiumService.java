@@ -28,5 +28,4 @@ public class StadiumService {
     public void getAllStadiums() throws SQLException {
         stadiumDao.getAllStadiums();
     }
-
 }

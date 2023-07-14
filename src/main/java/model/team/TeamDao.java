@@ -3,9 +3,11 @@ package model.team;
 
 import db.DBConnection;
 import dto.TeamRespDTO;
-import model.stadium.Stadium;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

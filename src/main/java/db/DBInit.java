@@ -13,7 +13,7 @@ public class DBInit {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             StringBuilder queryBuilder = new StringBuilder();
 
-            while ((sql = br.readLine())!= null) {
+            while ((sql = br.readLine()) != null) {
                 queryBuilder.append(sql);
             }
             sql = queryBuilder.toString();

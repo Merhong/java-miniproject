@@ -6,12 +6,13 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 
-@Getter @Setter @Builder
+@Getter
+@Setter
+@Builder
 public class OutPlayerRespDTO {
     private Integer playerId;
     private String name;
     private String position;
     private String reason;
     private Timestamp outPlayerCreatedAt;
-
 }

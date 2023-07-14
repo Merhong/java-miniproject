@@ -1,11 +1,16 @@
 package model.player;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
-@Getter @Setter @AllArgsConstructor @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class Player {
     private Integer id;
     private Integer teamId;
