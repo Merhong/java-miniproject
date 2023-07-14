@@ -1,8 +1,5 @@
 package dto;
 
-import model.player.PlayerDao;
-
-import java.sql.Connection;
 import java.sql.Timestamp;
 
 public class PlayerDto {

@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class DBInitTest {
 
     @Test
-    public void init_test(){
+    public void init_test() {
         DBInit dbInit = new DBInit();
         String sql = dbInit.readTeardown();
         try {
@@ -21,7 +21,7 @@ public class DBInitTest {
                 }
             }
             statement.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

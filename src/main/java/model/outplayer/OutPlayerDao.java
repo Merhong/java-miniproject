@@ -2,7 +2,6 @@ package model.outplayer;
 
 import db.DBConnection;
 import dto.OutPlayerRespDTO;
-import model.player.Player;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ public class OutPlayerDao {
     public OutPlayerDao() {
         connection = DBConnection.getInstance();
     }
-
 
     // 3.7 선수 퇴출 등록
     // 두 개 이상의 write 문이 실행되어야 합니다. 이때는 반드시 트랜잭션 관리가 Service에서 필요합니다.

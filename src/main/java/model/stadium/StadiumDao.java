@@ -49,7 +49,7 @@ public class StadiumDao {
 
     // 야구장 집합 만드는 메소드
     private Stadium buildStadiumFromResultSet(ResultSet resultSet) throws SQLException {
-        int id= resultSet.getInt("id");
+        int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         Timestamp createdAt = resultSet.getTimestamp("created_at");
 

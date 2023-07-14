@@ -1,13 +1,9 @@
 package service;
 
-import db.DBConnection;
 import dto.TeamRespDTO;
-import model.team.Team;
 import model.team.TeamDao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +36,4 @@ public class TeamService {
         }
         return teams;
     }
-
-
-
 }

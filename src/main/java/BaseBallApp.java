@@ -31,7 +31,6 @@ public class BaseBallApp {
 
             System.out.println("호출한 서비스 이름 : " + inputParsing[0]);  // 서비스명 출력
 
-
             /* 스플릿할 필요가 없는 메소드 */
             // 3.2 야구장 전체 목록보기 getAllStadiums()
             // input : 야구장목록
@@ -97,7 +96,6 @@ public class BaseBallApp {
                 String[] temp = splitInputParams(inputParsing[1]);
                 playerService.registerPlayer(Integer.parseInt(temp[1]), temp[3], temp[5]);   // [0]teamId [1]1 [2]name [3]이대호
             }
-
 
             // 3.6 팀별 선수 목록 getTeamPlayers(int teamId)
             // input : 선수목록?teamId=1

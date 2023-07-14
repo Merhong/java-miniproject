@@ -7,7 +7,10 @@ import lombok.ToString;
 
 import java.sql.Timestamp;
 
-@Getter @Setter @AllArgsConstructor @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class Stadium {
     private Integer id;
     private String name;

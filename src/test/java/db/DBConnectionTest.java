@@ -7,13 +7,12 @@ import java.sql.Connection;
 public class DBConnectionTest {
 
     @Test
-    public void getInstance_test(){
+    public void getInstance_test() {
         Connection connection = DBConnection.getInstance();
-        if(connection == null){
+        if (connection == null) {
             System.out.println("DB 연결안됨");
-        }else{
+        } else {
             System.out.println("DB 연결됨");
         }
     }
-
 }

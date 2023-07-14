@@ -1,7 +1,5 @@
 package service;
 
-import db.DBConnection;
-import dto.PlayerDto;
 import dto.PositionRespDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +7,6 @@ import lombok.ToString;
 import model.player.Player;
 import model.player.PlayerDao;
 
-import java.sql.Connection;
 import java.util.List;
 
 @Getter
@@ -20,7 +17,7 @@ public class PlayerService {
 
     // 생성자
     public PlayerService() {
-       this.playerDao = new PlayerDao();
+        this.playerDao = new PlayerDao();
     }
 
     // 3.5 선수등록 registerPlayer()
