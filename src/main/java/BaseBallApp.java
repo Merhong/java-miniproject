@@ -9,17 +9,16 @@ import java.util.Scanner;
 public class BaseBallApp {
 
     public static void main(String[] args) throws Exception {
-        // DB 연결 (baseballdb)
-//        Connection connection = DBConnection.getInstance();
-        // DI (의존성 주입)
+        // DB 연결 (baseballdb) - DAO에서 연결
         StadiumService stadiumService = new StadiumService();
         TeamService teamService = new TeamService();
         PlayerService playerService = new PlayerService();
         OutPlayerService outPlayerService = new OutPlayerService();
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());    // createdAt에 now()
         String[] inputParsing;  // 사용자의 Input을 Split해서 저장하는 배열
 
+        // 데몬 프로그램
         while (true) {
             /* 서비스 메뉴 */
             // 2.1.1 콘솔에 출력되는 질문
@@ -28,16 +27,17 @@ public class BaseBallApp {
             // 2.1.2 클라이언트 입력
             Scanner sc = new Scanner(System.in);  // 스캐너 sc
             String input = sc.nextLine();         // 클라이언트로부터 키보드 입력을 받는다.
-            inputParsing = input.split("\\?");
+            inputParsing = input.split("\\?"); // input 값을 "?" 기준으로 split.
 
             System.out.println("호출한 서비스 이름 : " + inputParsing[0]);  // 서비스명 출력
 
+
+            /* 스플릿할 필요가 없는 메소드 */
             // 3.2 야구장 전체 목록보기 getAllStadiums()
             // input : 야구장목록
             if (input.equals("야구장목록")) {
                 System.out.println("야구장 목록을 출력합니다.");
                 stadiumService.getAllStadiums();
-
             }
 
             // 3.4 전체 팀 목록보기 getAllTeams()
@@ -53,6 +53,7 @@ public class BaseBallApp {
                 System.out.println("퇴출 목록을 출력합니다.");
                 outPlayerService.listKickPlayer();
             }
+
             // 3.10 포지션별 팀 야구 선수 페이지
             // input : 포지션별목록
             else if (input.equals("포지션별목록")) {
@@ -60,15 +61,14 @@ public class BaseBallApp {
                 playerService.getPositionList();
             }
 
+            // 종료
             else if (input.equals("0") || input.equals("종료")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
             }
 
 
-
-
-            /* 파싱이 필요한 서비스 목록들 */
+            /* 스플릿 2번 이상 필요한 서비스 목록들 */
             // 3.1 야구장 등록 registerStadium(String name, Timestamp createdAt)
             // input : 야구장등록?name=잠실야구장
             // String temp[] = inputParsing[1].split("="); // [1] 잠실야구장
@@ -114,7 +114,7 @@ public class BaseBallApp {
                 System.out.println("퇴출 등록 서비스를 실행합니다.");
                 String[] temp = splitInputParams(inputParsing[1]);
                 outPlayerService.registerKickPlayer(Integer.parseInt(temp[1]), temp[3]);  // [0]playerId [1]1
-                playerService.updateKickPlayer();                                   // [2]reason [3]도박
+                playerService.updateKickPlayer();                                         // [2]reason [3]도박
             }
         }
     }
@@ -126,8 +126,8 @@ public class BaseBallApp {
 
         for (int i = 0; i < temp.length; i++) {
             String[] pair = temp[i].split("=");
-            temp2[i*2] = pair[0];
-            temp2[i*2+1] = pair[1];
+            temp2[i * 2] = pair[0];
+            temp2[i * 2 + 1] = pair[1];
         }
         return temp2;
     }
