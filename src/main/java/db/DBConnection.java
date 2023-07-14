@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBConnection {
-    public static Connection getInstance(){
+    public static Connection getInstance(){ // 싱글톤 패턴
         // MySQL 연결 정보
         String url = "jdbc:mysql://localhost:3306/baseballdb";
         String username = "root";
