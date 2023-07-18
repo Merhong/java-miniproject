@@ -1,3 +1,4 @@
+import db.DBInit;
 import service.OutPlayerService;
 import service.PlayerService;
 import service.StadiumService;
@@ -9,6 +10,10 @@ import java.util.Scanner;
 public class BaseBallApp {
 
     public static void main(String[] args) throws Exception {
+        // 1. TearDown
+        // DB 데이터를 초기화!!!
+        DBInit.teardown();
+
         // DB 연결 (baseballdb) - DAO에서 연결
         StadiumService stadiumService = new StadiumService();
         TeamService teamService = new TeamService();
